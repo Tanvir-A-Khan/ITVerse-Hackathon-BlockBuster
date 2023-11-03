@@ -2,6 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import BuyABX from "./components/BuyABX/BuyABX";
 import ArtworkDetail from "./components/Communities/ArtworkDetail";
 import CommunityDetail from "./components/Communities/CommunityDetail";
+import ExchangeTokens from "./components/Communities/ExchangeTokens";
 import CreateCommunity from "./components/CreateCommunity/CreateCommunity";
 import { Landing } from "./components/Landing/Landing";
 import { Layout } from "./components/Layout";
@@ -20,9 +21,10 @@ function App() {
             path="/pendingApprovalArts/:id"
             element={<PendingApprovalArts />}
           />
-          <Route path="/uploadArt/:id" element={<UploadArtWork />} />{" "}
+          <Route path="/community/uploadArt/:id" element={<UploadArtWork />} />{" "}
           {/* route */}
           <Route path="/community/:id" element={<CommunityDetail />} />{" "}
+          <Route path="/community/exchange/:id" element={<ExchangeTokens />} />{" "}
           {/* route */}
           <Route path="/artwork/:id" element={<ArtworkDetail />} />{" "}
           {/* Route */}

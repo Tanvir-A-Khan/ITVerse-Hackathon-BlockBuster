@@ -146,38 +146,22 @@ export const MethodsContextProvider = ({ children }) => {
   };
 
   /**
-   * @param ABXAmount amount of ABX user wants to exchange
+   * @param communityId
+   * @param amount amount of ABX user wants to exchange
+   * @param amount
    * @returns  New ABX and Native Token Balance
    */
   const exchangeABXwithCommunityNativeToken = async (
     communityId,
-    ABXAmount
+    amount,
+    type // 0 for ABX -> Native 1 for Native => ABX
   ) => {
     if (checkAuth()) {
       try {
         const res = await instance.contract.exchangeABXwithNativeToken(
           communityId,
-          ABXAmount
-        );
-        return res;
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
-  /**
-   * @param CommunityNativeToken amount of Community Native Token user wants to exchange
-   * @returns  New ABX and Native Token Balance
-   */
-  const exchangeCommunityNativeTokenWithABX = async (
-    communityId,
-    CommunityNativeToken
-  ) => {
-    if (checkAuth()) {
-      try {
-        const res = await instance.contract.exchangeCommunityNativeTokenWithABX(
-          communityId,
-          CommunityNativeToken
+          amount,
+          type
         );
         return res;
       } catch (err) {
@@ -191,14 +175,17 @@ export const MethodsContextProvider = ({ children }) => {
    * @param  communityId
    * @param  artURI  @param artPrice
    */
-  const uploadART = async (communityId, artURI, artPrice) => {
+  const uploadART = async (communityId, artURI, artPrice, artCategoryId) => {
     if (checkAuth()) {
       try {
-        const res = await instance.contract.uploadART(
+        const res = await instance.contract.uploadArt(
           communityId,
           artURI,
-          artPrice
+          artPrice,
+          artCategoryId
         );
+
+        await res.wait();
       } catch (err) {
         console.log(err);
       }
@@ -217,7 +204,6 @@ export const MethodsContextProvider = ({ children }) => {
         getNewCommunityCost,
         createCommunity,
         exchangeABXwithCommunityNativeToken,
-        exchangeCommunityNativeTokenWithABX,
         uploadART,
       }}
     >

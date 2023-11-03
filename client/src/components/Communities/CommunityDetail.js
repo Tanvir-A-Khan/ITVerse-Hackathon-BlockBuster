@@ -1,7 +1,6 @@
 // components/CommunityDetail/CommunityDetail.js
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 // no event handler for the Upload and Buy Community Native Token
 
@@ -338,12 +337,18 @@ const CommunityDetail = () => {
             <p className="mt-4 text-xl mb-4 font-bold">
               Upload to the community
             </p>
-            <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
+            <Link
+              to={`/community/uploadArt/${id}`}
+              className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-300"
+            >
               Upload
-            </button>
-            <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
+            </Link>
+            <Link
+              to={`/community/exchange/${id}`}
+              className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-300"
+            >
               Buy Community Native Token
-            </button>
+            </Link>
           </div>
         </div>
       </div>
