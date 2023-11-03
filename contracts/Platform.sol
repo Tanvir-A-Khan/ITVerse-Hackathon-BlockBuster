@@ -3,6 +3,7 @@ pragma solidity ^0.8.20;
 import "./Community.sol";
 import "./ABX.sol";
 
+
 contract Platform{
     Community[] public communities;
     address public owner;
@@ -46,8 +47,6 @@ contract Platform{
 
         Community com = new Community(_title,_communityType,_description,_tokenName,_sybmol, communityInitialSupply, msg.sender);
         communities.push(com);
-
-
         return  true;
     }
 
@@ -58,6 +57,7 @@ contract Platform{
     }
 
     function getAllCommunity() public view returns (COMMUNITYINFO[] memory) {
+
     COMMUNITYINFO[] memory cm = new COMMUNITYINFO[](communities.length);
 
         for (uint i = 0; i < communities.length; i++) {
@@ -79,39 +79,105 @@ contract Platform{
 
     mapping(address => uint) balanceMap;
 
-    function buyABX() payable  external{
+    function buyABX() payable  external  {
         require( msg.value > 0);
         uint amount = msg.value;
         balanceMap[msg.sender] += amount;
-
     }
     function getUserABXInfo() external view returns (uint){
         return balanceMap[msg.sender];        
     }
-    
-    // function getNewCommunityCost() external pure returns(uint){
-    //     return 10000 wei;
-    // }
 
-    function exchangeABXwithCommunityNativeToken(uint id,uint ABXamount) public returns (uint, uint) {
 
-        balanceMap[msg.sender] -= ABXamount;
-        communities[id].mint(ABXamount);
+    function exchangeABXwithCommunityNativeToken(uint id,uint amount, bool abxtocnt) public returns (uint, uint) {
+
+        if(abxtocnt){
+            balanceMap[msg.sender] -= amount;
+            communities[id].mint(amount);
+            return (balanceMap[msg.sender], communities[id].balanceOf(msg.sender));
+
+        }
         
-        return (balanceMap[msg.sender], communities[id].balanceOf(msg.sender));
-
+        balanceMap[msg.sender] += amount;
+        communities[id].burn(amount);
+        return (balanceMap[msg.sender], communities[amount].balanceOf(msg.sender));
 
     }
 
-    function exchangeCommunityNativeTokenwithABX(uint communityId, uint CommunityNativeToken) external returns (uint, uint){
-        balanceMap[msg.sender] += CommunityNativeToken;
-        communities[communityId].burn(CommunityNativeToken);
-        return (balanceMap[msg.sender], communities[communityId].balanceOf(msg.sender));
-    } 
     
 
     function getUserCommunityNativeTokenInfo(uint communityId)external view returns (uint){
         return  communities[communityId].getBalance();
+    }
+
+/////////// ART CONTRACT INTERACTIONS
+
+    function uploadArtifact(
+        uint communityId,
+        string memory artUri,
+        uint price,
+        uint category
+    ) external returns (uint) {
+        require(100<=communities[communityId].getBalance(), "Not enought token");
+        communities[communityId].burn(100);
+        communities[communityId].setReserve(100);
+        return communities[communityId].uploadArt(artUri,msg.sender,msg.sender,price,category,100);
+    }
+
+    function getPendingArtifactsArray( uint communityId ) internal  view returns (uint[] memory) {
+        return communities[communityId].getPendingArtsArray();
+    }
+    function upvoteArtifact(
+         uint communityId,
+         uint artId
+    )external {
+        communities[communityId].upVote(artId, int(communities[communityId].getBalance()) );
+    }
+    function downvoteArtifact(
+         uint communityId,
+         uint artId
+    )external {
+        communities[communityId].downVote(artId,int(communities[communityId].getBalance()));
+    }
+    receive() external payable { }
+
+    function getCountofArtifacts(uint communityId) external view returns (uint){
+        return communities[communityId].getArtsSize();
+    }
+
+    function getArtifactInfo(
+        uint communityId,
+        uint artId
+        
+    ) external payable  returns ( 
+        string memory artUri,
+        address oowner,
+        address creator,
+        uint price,
+        uint category,
+        uint stake,
+        uint time,
+        int vote
+        ) {
+         (
+            artUri,
+            oowner,
+            creator,
+            price,
+            category,
+            stake,
+            time,
+            vote
+        ) = communities[communityId].getArtInfo(artId);
+    }
+    function getArtifactStatus(
+        uint communityId,
+        uint artId
+    ) external view returns (bool ){
+        return communities[communityId].getStatus(artId);
+    }
+    function getCommunityReserve(uint communityId)external view returns (uint){
+        return communities[communityId].getReserve();
     }
 
     
