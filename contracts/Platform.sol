@@ -28,9 +28,6 @@ contract Platform{
 
     uint public  comvalue = 1000;
 
-    function getCommunityValue() external view returns (uint){
-        return comvalue;
-    }
 
     function createCommunity(
         string memory _title,
@@ -68,14 +65,10 @@ contract Platform{
         return cm;
     }
 
-    function checkCommunityStakeholder(address user, uint id) public view returns (bool){
-        if(communities[id].getowner() == user) return true;
+    function checkCommunityStakeholder( uint id) public view returns (bool){
+        if(communities[id].getowner() == msg.sender) return true;
         return  false;
     }
-
-    function getABXValue() external pure returns(uint){
-        return 1 wei;
-    } 
 
     mapping(address => uint) balanceMap;
 
@@ -84,7 +77,7 @@ contract Platform{
         uint amount = msg.value;
         balanceMap[msg.sender] += amount;
     }
-    function getUserABXInfo() external view returns (uint){
+    function getUserABXAmount() external view returns (uint){
         return balanceMap[msg.sender];        
     }
 
