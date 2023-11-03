@@ -1,5 +1,6 @@
-import React from 'react';
-import ConnectButton from './ConnectButton';
+import React from "react";
+import { Link } from "react-router-dom";
+import ConnectButton from "./ConnectButton";
 
 const Navbar = () => {
   return (
@@ -31,11 +32,18 @@ const Navbar = () => {
       <div></div>
 
       {/* Right Section: ConnectButton */}
-      <div>
+      <div className="flex gap-4">
+        <Link
+          to="/buyABX"
+          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full"
+        >
+          Buy ABX
+        </Link>
+
         <ConnectButton />
       </div>
     </div>
   );
 };
 
-export default Navbar;  
+export default Navbar;
