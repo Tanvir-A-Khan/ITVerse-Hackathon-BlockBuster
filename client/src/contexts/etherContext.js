@@ -2,6 +2,351 @@ import { ethers } from "ethers";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const EtherContext = createContext();
+const abi = [
+  {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [],
+    name: "buyABX",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+    ],
+    name: "checkCommunityStakeholder",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "communities",
+    outputs: [
+      {
+        internalType: "contract Community",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "comvalue",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_title",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_communityType",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_description",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_tokenName",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_sybmol",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "communityInitialSupply",
+        type: "uint256",
+      },
+    ],
+    name: "createCommunity",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "ABXamount",
+        type: "uint256",
+      },
+    ],
+    name: "exchangeABXwithCommunityNativeToken",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "communityId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "CommunityNativeToken",
+        type: "uint256",
+      },
+    ],
+    name: "exchangeCommunityNativeTokenwithABX",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getABXValue",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+    ],
+    name: "getACommunity",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllCommunity",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "title",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "communityType",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "description",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "tokenName",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "sybmol",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "totalToken",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct Platform.COMMUNITYINFO[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getCategories",
+    outputs: [
+      {
+        internalType: "string[]",
+        name: "",
+        type: "string[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getCommunityValue",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getUserABXInfo",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "communityId",
+        type: "uint256",
+      },
+    ],
+    name: "getUserCommunityNativeTokenInfo",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+];
 
 // eslint-disable-next-line react/prop-types
 export const EtherContextProvider = ({ children }) => {
@@ -73,13 +418,28 @@ export const EtherContextProvider = ({ children }) => {
         const signer = await provider.getSigner();
         const account = await signer.getAddress();
         const balance = await provider.getBalance(account);
+
+        const contract = new ethers.Contract(
+          process.env.REACT_APP_CONTRACT_ADDRESS,
+          abi,
+          signer
+        );
+
         setInstance({
           provider: provider,
           account: account,
           balance: Number(balance),
+          contract: contract,
         });
         // Listen for events
-        eventListen(provider, account);
+        //eventListen(provider, account);
+      } else {
+        setInstance({
+          provider: null,
+          account: null,
+          balance: null,
+          contract: null,
+        });
       }
     };
     init();
@@ -91,18 +451,22 @@ export const EtherContextProvider = ({ children }) => {
       const signer = await provider.getSigner();
       const account = await signer.getAddress();
       const balance = await provider.getBalance(account);
-      setInstance({ provider: provider, account: account, balance: balance });
+
       localStorage.setItem("account", account);
-      eventListen(provider, account);
-      // const contract = new ethers.Contract(
-      //   process.env.REACT_APP_CONTRACT_ADDRESS,
-      //   process.env.REACT_APP_CONTRACT_ABI,
-      //   signer
-      //   );
-      // setInstance({
-      //   account: window.ethereum.selectedAddress,
-      //   contract,
-      // });
+      // eventListen(provider, account);
+
+      const contract = new ethers.Contract(
+        process.env.REACT_APP_CONTRACT_ADDRESS,
+        abi,
+        signer
+      );
+
+      setInstance({
+        provider: provider,
+        account: account,
+        balance: Number(balance),
+        contract: contract,
+      });
     } else console.log("No Ethereum Instance available");
   };
 

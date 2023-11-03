@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useMethodsContext } from "../../contexts/methodsContext";
+import useCategories from "../../hooks/useCategories";
 
 const NewCommunityForm = () => {
+  const { categories, loading } = useCategories();
+
+  const { createCommunity } = useMethodsContext();
+
   const [formData, setFormData] = useState({
     communityName: "",
     communityDescription: "",
@@ -10,16 +17,34 @@ const NewCommunityForm = () => {
     communityTypeId: "",
   });
 
-  console.log(formData);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Process form data here
-    console.log(formData);
+    try {
+      const {
+        communityName,
+        communityDescription,
+        communityTokenName,
+        communityTokenSymbol,
+        communityInitialSupply,
+        communityTypeId,
+      } = formData;
+      await createCommunity(
+        communityName,
+        communityTypeId,
+        communityDescription,
+        communityTokenName,
+        communityTokenSymbol,
+        communityInitialSupply
+      );
+      toast.success("Community Creation Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error("Community Creation Failed");
+    }
   };
 
   return (
@@ -127,20 +152,23 @@ const NewCommunityForm = () => {
             >
               Community Type
             </label>
-            <select
-              name="communityTypeId"
-              id="communityTypeId"
-              onChange={handleChange}
-              value={formData.communityTypeId}
-              className="shadow border rounded w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            >
-              <option value="">Select a type</option>
-              <option value="0">Type 1</option>
-              <option value="1">Type 2</option>
-              <option value="2">Type 3</option>
-              {/* Add more options as needed */}
-            </select>
+            {!loading && (
+              <select
+                name="communityTypeId"
+                id="communityTypeId"
+                onChange={handleChange}
+                value={formData.communityTypeId}
+                className="shadow border rounded w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              >
+                {categories.map((item, index) => (
+                  <option value={index} key={index}>
+                    {item}
+                  </option>
+                ))}
+                {/* Add more options as needed */}
+              </select>
+            )}
           </div>
 
           <div className="flex items-center justify-between">

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useMethodsContext } from "../../contexts/methodsContext";
 // You'll need to import your Web3 integration here
 
 const BuyABX = () => {
   const [ethAmount, setEthAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { buyABX } = useMethodsContext();
 
   const handleInputChange = (e) => {
     setEthAmount(e.target.value);
@@ -14,15 +18,9 @@ const BuyABX = () => {
     setIsSubmitting(true);
 
     try {
-      // Assuming web3 and tokenContract are passed as props and are already configured
-      // The exchange logic will be implemented here using a call to the tokenContract
-
-      // Example: await tokenContract.exchangeETHforToken({ value: web3.utils.toWei(ethAmount, 'ether') });
-
-      // If successful, you may want to reset the form or give feedback to the user
+      const res = await buyABX(ethAmount);
       setEthAmount("");
-      // And update any state or UI as necessary
-      alert("Exchange successful!");
+      toast.success("ABX Exchanged");
     } catch (error) {
       // Handle or display the error
       console.error("Exchange failed:", error);

@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 import { createContext, useContext } from "react";
 import { useEtherContext } from "./etherContext";
 
@@ -6,11 +5,11 @@ const MethodsContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const MethodsContextProvider = ({ children }) => {
-  const { instance } = useEtherContext;
+  const { instance } = useEtherContext();
 
   // Check if user is logged in
-  const checkAuth = () => {
-    if (instance.instance.contract === null) return false;
+  const checkAuth = async () => {
+    if (instance.contract === null) return false;
 
     return true;
   };
@@ -76,9 +75,9 @@ export const MethodsContextProvider = ({ children }) => {
    * @param userAddress to check user's ABX value
    * @returns ABX instance.contract native token info
    */
-  const getUserABXValue = async (userAddress) => {
+  const getUserABXInfo = async () => {
     try {
-      const res = await instance.contract.getUserABXValue(userAddress);
+      const res = await instance.contract.getUserABXInfo();
       return res;
     } catch (err) {
       console.log(err);
@@ -86,14 +85,14 @@ export const MethodsContextProvider = ({ children }) => {
   };
 
   /**
-   * @param ETH amount
+   * @param WEI amount
    * @returns How much ABX user owns
    */
-  const buyABX = async (ETH) => {
+  const buyABX = async (WEI) => {
     if (checkAuth()) {
       try {
-        const eth = ethers.parseEther(ETH);
-        const res = await instance.contract.buyABX({ value: eth });
+        const res = await instance.contract.buyABX({ value: WEI });
+        await res.wait();
         return res;
       } catch (err) {
         console.log(err);
@@ -138,6 +137,7 @@ export const MethodsContextProvider = ({ children }) => {
           communityInitialSupply,
           communityTypeId
         );
+        await res.wait();
         return res;
       } catch (err) {
         console.log(err);
@@ -186,6 +186,25 @@ export const MethodsContextProvider = ({ children }) => {
     }
   };
 
+  /**
+   *
+   * @param  communityId
+   * @param  artURI  @param artPrice
+   */
+  const uploadART = async (communityId, artURI, artPrice) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.uploadART(
+          communityId,
+          artURI,
+          artPrice
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <MethodsContext.Provider
       value={{
@@ -193,12 +212,13 @@ export const MethodsContextProvider = ({ children }) => {
         getCommunity,
         checkCommunityStakeholder,
         getABXValue,
-        getUserABXValue,
+        getUserABXInfo,
         buyABX,
         getNewCommunityCost,
         createCommunity,
         exchangeABXwithCommunityNativeToken,
         exchangeCommunityNativeTokenWithABX,
+        uploadART,
       }}
     >
       {children}
