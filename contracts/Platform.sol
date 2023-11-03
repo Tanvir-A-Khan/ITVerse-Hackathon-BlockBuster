@@ -79,16 +79,11 @@ contract Platform{
 
     mapping(address => uint) balanceMap;
 
-    function buyABX() payable  external returns (uint) {
+    function buyABX() payable  external{
         require( msg.value > 0);
         uint amount = msg.value;
         balanceMap[msg.sender] += amount;
-         uint refund = msg.value - amount;
-        if(refund > 0) {
-            payable (msg.sender).transfer(refund);
-        }
 
-        return balanceMap[msg.sender];
     }
     function getUserABXInfo() external view returns (uint){
         return balanceMap[msg.sender];        
