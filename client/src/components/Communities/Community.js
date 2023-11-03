@@ -1,6 +1,7 @@
 // Community.js
 import React from 'react';
 import  { useState, useEffect  } from 'react';
+import { Link } from 'react-router-dom';
 
 const data = [
   {
@@ -55,47 +56,49 @@ const data = [
 
 
 const Community = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const showNextDiv = () => {
-    if (currentIndex < data.length - 4) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      setCurrentIndex(0);
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(showNextDiv, 3000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
-
-  return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl mb-4">ArtBlock Communities</h2>
-
-      <div className="relative overflow-hidden" style={{ width: '100%' }}>
-        <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 25}%)` }}>
-          {data.map((item, index) => (
-            <div key={item.id} className="flex-none w-1/4 p-4 border">
-              <img src={item.image} alt={item.title} className="w-64 h-64 object-cover mx-auto" />
-              <h3 className="mt-2 font-bold">{item.title}</h3>
-              <p>{item.description}</p>
-            </div>
-          ))}
+    const [currentIndex, setCurrentIndex] = useState(0);
+  
+    const showNextDiv = () => {
+      if (currentIndex < data.length - 4) {
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        setCurrentIndex(0);
+      }
+    };
+  
+    useEffect(() => {
+      const interval = setInterval(showNextDiv, 3000);
+      return () => clearInterval(interval);
+    }, [currentIndex]);
+  
+    return (
+      <div className="container mx-auto p-4">
+        <h2 className="text-2xl mb-4">ArtBlock Communities</h2>
+  
+        <div className="relative overflow-hidden" style={{ width: '100%' }}>
+          <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 25}%)` }}>
+            {data.map((item, index) => (
+              <div key={item.id} className="flex-none w-1/4 p-4 border">
+                <Link to={`/community/${item.id}`}>
+                  <img src={item.image} alt={item.title} className="w-64 h-64 object-cover mx-auto" />
+                  <h3 className="mt-2 font-bold">{item.title}</h3>
+                  <p>{item.description}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+  
+        <div className="flex justify-between mt-4">
+          <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : data.length - 4)}>
+            <i className="fas fa-chevron-left"></i>
+          </button>
+          <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={showNextDiv}>
+            <i className="fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>
-
-      <div className="flex justify-between mt-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={() => setCurrentIndex(currentIndex > 0 ? currentIndex - 1 : data.length - 4)}>
-          <i className="fas fa-chevron-left"></i>
-        </button>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={showNextDiv}>
-          <i className="fas fa-chevron-right"></i>
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default Community;
+    );
+  }
+  
+  export default Community;
