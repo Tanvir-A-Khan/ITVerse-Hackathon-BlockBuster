@@ -326,6 +326,11 @@ const CommunityDetail = () => {
         <div className="w-1/2 pl-6 flex flex-col justify-between">
           <div>
             <h2 className="mt-10 text-3xl mb-4 font-bold">{community.title}</h2>
+            <Link to={`/myart/${community.id}`}>
+              <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
+                My Collection
+              </button>
+            </Link>
             <p className="mt-4 text-lg font-medium leading-relaxed text-gray-700 bg-gray-100 p-4 rounded-md shadow-md">
               {community.description}
             </p>

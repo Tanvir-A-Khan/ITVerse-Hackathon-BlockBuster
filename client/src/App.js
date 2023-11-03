@@ -8,6 +8,7 @@ import { Landing } from "./components/Landing/Landing";
 import { Layout } from "./components/Layout";
 import PendingApprovalArts from "./components/PendingApprovalArts/PendingApprovalArts";
 import UploadArtWork from "./components/UploadArtWork/UploadArtWork";
+import Myart from "./components/Communities/Myart";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           {/* route */}
           <Route path="/community/:id" element={<CommunityDetail />} />{" "}
           <Route path="/community/exchange/:id" element={<ExchangeTokens />} />{" "}
+          <Route path="/myart/:id" element={<Myart/>} />{" "}
           {/* route */}
           <Route path="/artwork/:id" element={<ArtworkDetail />} />{" "}
           {/* Route */}
