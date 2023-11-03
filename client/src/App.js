@@ -9,6 +9,8 @@ import { Layout } from "./components/Layout";
 import PendingApprovalArts from "./components/PendingApprovalArts/PendingApprovalArts";
 import UploadArtWork from "./components/UploadArtWork/UploadArtWork";
 import Myart from "./components/Communities/Myart";
+import Sell from "./components/Communities/Sell";
+import Auction from "./components/Communities/Auction";
 
 function App() {
   return (
@@ -29,6 +31,10 @@ function App() {
           <Route path="/myart/:id" element={<Myart/>} />{" "}
           {/* route */}
           <Route path="/artwork/:id" element={<ArtworkDetail />} />{" "}
+          {/* Route */}
+          <Route path="/sell/:id" element={<Sell />} />{" "}
+          {/* Route */}
+          <Route path="/auction/:id" element={<Auction />} />{" "}
           {/* Route */}
         </Routes>
       </Layout>
