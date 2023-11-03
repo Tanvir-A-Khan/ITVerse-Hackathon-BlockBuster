@@ -34,7 +34,7 @@ contract Community is ERC20 , ArtContract{
         return owner;
     }
     function setReserve(uint amount) external {
-        reserve = amount;
+        reserve += amount;
     }
     function getReserve() external view returns (uint){
         return reserve;
