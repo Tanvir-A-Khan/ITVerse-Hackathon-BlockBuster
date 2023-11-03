@@ -1,0 +1,26 @@
+{
+  "name": "hardhat-cheatsheet",
+  "version": "1.1.0",
+  "description": "Hardhat Commands",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat run .\\scripts\\deploy.js",
+    "node": "npx hardhat node",
+    "interact": "npx hardhat run .\\scripts\\contractInteract.js"
+  },
+  "keywords": [
+    "hardhat",
+    "cheatsheet"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "hardhat": "^2.18.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}

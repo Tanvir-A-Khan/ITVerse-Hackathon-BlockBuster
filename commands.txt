@@ -1,0 +1,14 @@
+mkdir folder
+cd ./folder
+npm init -y
+npm install hardhat
+npx hardhat init
+npm install --save-dev "hardhat@^2.18.3" "@nomicfoundation/hardhat-toolbox@^3.0.0"
+
+
+// Basic hardhat commands
+npx hardhat node -> npm run node
+npx hardhat compile -> npm run compile
+npx hardhat run .\scripts\deploy.js -> npm run deploy
+npx hardhat test -> npm run test
+npx hardhat console
