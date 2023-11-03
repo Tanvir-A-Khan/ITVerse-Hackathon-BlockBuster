@@ -63,14 +63,25 @@ export const MethodsContextProvider = ({ children }) => {
    *
    * @returns ABX instance.contract native token info
    */
-  const getABXInfo = async () => {
-    if (checkAuth()) {
-      try {
-        const res = await instance.contract.getABXInfo();
-        return res;
-      } catch (err) {
-        console.log(err);
-      }
+  const getABXValue = async () => {
+    try {
+      const res = await instance.contract.getABXValue();
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  /**
+   * @param userAddress to check user's ABX value
+   * @returns ABX instance.contract native token info
+   */
+  const getUserABXValue = async (userAddress) => {
+    try {
+      const res = await instance.contract.getUserABXValue(userAddress);
+      return res;
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -181,7 +192,8 @@ export const MethodsContextProvider = ({ children }) => {
         getAllCommunities,
         getCommunity,
         checkCommunityStakeholder,
-        getABXInfo,
+        getABXValue,
+        getUserABXValue,
         buyABX,
         getNewCommunityCost,
         createCommunity,
