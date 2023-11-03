@@ -4,7 +4,7 @@ import ConnectButton from "./ConnectButton";
 
 const Navbar = () => {
   return (
-    <div className="flex items-center justify-between bg-gray-200 p-4">
+    <div className="flex items-center justify-between bg-gray-900 p-2">
       {/* Left Section: Search Bar */}
       <div className="flex items-center">
         <svg
@@ -17,7 +17,7 @@ const Navbar = () => {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={4} // Increased the stroke width to make the icon bolder
+            strokeWidth={4}
             d="M21 21l-5-5M15 10A5 5 0 107 10a5 5 0 008 0M4 20v-2"
           />
         </svg>
@@ -28,8 +28,10 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Center Section: Empty (for alignment) */}
-      <div></div>
+      {/* Center Section: Redirect to Home Page */}
+      <Link to="/" className="text-white text-3xl font-bold hover:text-yellow-300">
+        ArtBlock
+      </Link>
 
       {/* Right Section: ConnectButton */}
       <div className="flex gap-4">
