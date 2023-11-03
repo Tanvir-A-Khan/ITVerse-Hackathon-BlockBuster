@@ -11,7 +11,8 @@ export const Layout = ({ children }) => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Navbar />
-      <main>{account !== null && <div>{children}</div>}</main>
+     {/* <main>{account !== null && <div>{children}</div>}</main> */}
+     <main>{<div>{children}</div>}</main>
       <Footer />
     </>
   );
