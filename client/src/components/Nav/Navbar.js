@@ -1,5 +1,5 @@
 import React from 'react';
-import ConnectButton from './Pages/AuthPages/ConnectButton'; 
+import ConnectButton from './ConnectButton';
 
 const Navbar = () => {
   return (
