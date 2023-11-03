@@ -1,4 +1,5 @@
 import React from "react";
+import UserABXInfo from "./UserABXInfo";
 
 const NewCommunityDetails = ({ token, account }) => {
   return (
@@ -31,23 +32,11 @@ const NewCommunityDetails = ({ token, account }) => {
               <dt className="text-sm font-medium text-gray-500 mt-3">
                 Price to launch new community
               </dt>
-              <dd className="text-sm text-gray-900">12 ABX</dd>
+              <dd className="text-sm text-gray-900">1000 ABX</dd>
             </dl>
           </div>
         </div>
-        {account !== null && (
-          <div className="p-8">
-            <div className="text-center md:text-left">
-              <h3 className="text-lg font-semibold text-gray-900">
-                User Details
-              </h3>
-              <dl className="mt-2">
-                <dt className="text-sm font-medium text-gray-500">Total ABX</dt>
-                <dd className="text-sm text-gray-900">2 ABX</dd>
-              </dl>
-            </div>
-          </div>
-        )}
+        {account !== null && <UserABXInfo />}
       </div>
     </div>
   );

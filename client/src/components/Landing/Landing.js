@@ -1,12 +1,16 @@
-import React from 'react'
-import { Hero } from './Hero'
-import Community from '../Communities/Community'
+import React from "react";
+import { useEtherContext } from "../../contexts/etherContext";
+import Community from "../Communities/Community";
+import { Hero } from "./Hero";
 
 export const Landing = () => {
-    return (
-        <div>Landing
-            <Hero />
-            <Community/>
-        </div>
-    )
-}
+  const { instance } = useEtherContext();
+  const { account } = instance;
+  return (
+    <div>
+      Landing
+      <Hero />
+      {account !== null && <Community />}
+    </div>
+  );
+};
