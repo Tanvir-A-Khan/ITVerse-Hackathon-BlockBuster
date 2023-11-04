@@ -1,4 +1,5 @@
 # ITVerse-Hackathon-BlockBuster
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/a86a1b52-12b4-489e-bed4-2b073a31a063)
 
 **ArtBlock: The Evolution of Decentralized Art Communities**
 
@@ -91,38 +92,57 @@ To deploy this project run
 
 ## Screenshots
 - Home page
-
-- Metamask Connection
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/d9626d6a-2345-4440-af67-f2ef2a5c48a0)
 
 - Buy ABX
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/02ecc523-cd0b-4615-ae2f-2b3b2f2eb5c0)
 
 - Community Page
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/723ed56e-ccee-41ac-af9a-5b3c2119fee6)
 
 - Community Voting Page
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/7fc2fffb-9caa-41ce-aebe-dfd9b2e5a2be)
 
 - Art Collection in Community
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/90527464-fbf3-461c-b4e9-ce2519cc5bf9)
 
 - More Details
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/68dc9c06-6515-4ea7-bc2e-fab0c810e44b)
 
 - Buy Art
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/9dcabd58-b72d-4d17-a724-87cfea83e28f)
 
 - Upload to Community
+- Step 1 :
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/4d06f2d1-ad94-459b-afa7-959ff10d4a7f)
+- Step 2 :
+ ![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/ce47c2a9-d2b4-4cd6-a767-a1b5a0f60f99)
+
 
 - Buy Community Native Token
+- Step 1 :
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/d4722fcc-60c5-4dfd-85c0-49d07521d5d1)
+- Step 2 :
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/f2b289e8-d67d-4945-a8a0-a78294c3ecce)
+
 
 - My Collection
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/e44ff8e6-cb03-4dc4-a7a0-b954ab26c649)
 
 - My Collection Hover
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/a978ef9c-039a-4cdc-a70e-b051b3fbd571)
 
-- Sell Iteam
+- Sell Item
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/086e4f52-e57b-4829-810b-fc300614a615)
 
 - Dutch Auction
+![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/5c78e0dd-16b0-4a45-b227-d1ad552df23a)
 
 
 ## Branches
 **Main**
-- Main brach is the most stable branch.
-- Main brach contains both client and Smart Contract details.
+- Main branch is the most stable branch.
+- The main brach contains both client and Smart Contract details.
 
 **UI UX**
 - UI UX branch contains the interface files.
@@ -147,8 +167,8 @@ To deploy this project run
 ```
 
 **Interface0**
-- Interface0 brach is an interface testing brach.
-- Initially Interface0 has been created to test the interface features.
+- Interface0 brach is an interface testing branch.
+- Initially, Interface0 has been created to test the interface features.
 
 ## Run Interface0 Locally
 
