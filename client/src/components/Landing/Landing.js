@@ -8,9 +8,8 @@ export const Landing = () => {
   const { account } = instance;
   return (
     <div>
-      Landing
-      <Hero />
-      {account !== null && <Community />}
+   
+      { <Community />}
     </div>
   );
 };
