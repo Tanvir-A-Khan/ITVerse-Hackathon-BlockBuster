@@ -1,15 +1,22 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useMethodsContext } from "../../contexts/methodsContext";
+import useGetCommunity from "../../hooks/useGetCommunity";
+import useGetUserCommunityFund from "../../hooks/useGetUserCommunityFund";
 import useUserABXInfo from "../../hooks/useUserABXInfo";
 
 const ExchangeTokens = () => {
   const { value } = useUserABXInfo();
-  const { exchangeABXwithCommunityNativeToken } = useMethodsContext();
+
+  const { id } = useParams();
+  const { community, loading: communityLoading } = useGetCommunity(id);
+  const { res } = useGetUserCommunityFund(id);
+  const { exchangeTokens, getUserCommunityFund } = useMethodsContext();
 
   const [amountToExchange, setAmountToExchange] = useState("");
   const [isExchanging, setIsExchanging] = useState(false);
-  const [exchangeRate] = useState(1); // 1 TokenA = 1 TokenB for example
-  const [tokenType, setTokenType] = useState("AtoB"); // 'AtoB' or 'BtoA'
+  const [exchangeRate] = useState(1);
+  const [tokenType, setTokenType] = useState("1");
 
   const handleAmountChange = (event) => {
     setAmountToExchange(event.target.value);
@@ -26,7 +33,12 @@ const ExchangeTokens = () => {
     try {
       // Here you would include the logic to call the blockchain or backend service
       // to process the token exchange
-      await exchangeABXwithCommunityNativeToken();
+
+      await exchangeTokens(id, amountToExchange, Number(tokenType));
+
+      setIsExchanging(false);
+
+      window.location.reload();
     } catch (error) {
       console.error("Exchange failed:", error);
       setIsExchanging(false);
@@ -40,7 +52,7 @@ const ExchangeTokens = () => {
         <p>You currently have {value}</p> ABX Token
       </div>
       <div>
-        <p>You currently have {value}</p> Community Token Token
+        <p>You currently have {Number(res)}</p> {community[4]} Token
       </div>
       <form
         onSubmit={handleExchange}
@@ -79,8 +91,8 @@ const ExchangeTokens = () => {
               onChange={handleTokenTypeChange}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             >
-              <option value="0">ARX to {"community token"} </option>
-              <option value="1">{"community token"} to ATX</option>
+              <option value="1">ARX to {community[4]} </option>
+              <option value="0">{community[4]} to ATX</option>
             </select>
           </div>
         </div>
@@ -98,7 +110,7 @@ const ExchangeTokens = () => {
           </button>
           <div className="text-center">
             <p>
-              Exchange Rate: 1 ABX = {exchangeRate} {"community token"}{" "}
+              Exchange Rate: 1 ABX = {exchangeRate} {community[4]}{" "}
             </p>
           </div>
         </div>

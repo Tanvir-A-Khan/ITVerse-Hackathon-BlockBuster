@@ -1,5 +1,5 @@
 // Community.js
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useGetCommunities from "../../hooks/UseGetCommunities";
 
@@ -65,8 +65,6 @@ const data = [
 const Community = () => {
   const { communities, loading } = useGetCommunities();
 
-  console.log(communities);
-
   // console.log(communities);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -78,10 +76,10 @@ const Community = () => {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(showNextDiv, 3000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+  // useEffect(() => {
+  //   const interval = setInterval(showNextDiv, 3000);
+  //   return () => clearInterval(interval);
+  // }, [currentIndex]);
 
   return (
     <div className="container mx-auto p-4">
@@ -95,14 +93,12 @@ const Community = () => {
           {!loading &&
             communities.map((item, index) => (
               <div key={index} className="flex-none w-1/4 p-4 border">
-                <Link to={`/community/${index}`}>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-64 h-64 object-cover mx-auto"
-                  />
-                  <h3 className="mt-2 font-bold">{item[0]}</h3>
-                  <p>{item.description}</p>
+                <Link to={`/community/${item[0]}`}>
+                  <h3 className="mt-2 font-bold">{item[1]}</h3>
+                  <p>{item[2]}</p>
+                  <p>
+                    Supply: {Number(item[5])} {item[4]} Tokens{" "}
+                  </p>
                 </Link>
               </div>
             ))}

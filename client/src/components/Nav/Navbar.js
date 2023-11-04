@@ -29,8 +29,17 @@ const Navbar = () => {
       </div>
 
       {/* Center Section: Redirect to Home Page */}
-      <Link to="/" className="text-white text-3xl font-bold hover:text-yellow-300">
+      <Link
+        to="/"
+        className="text-white text-3xl font-bold hover:text-yellow-300"
+      >
         ArtBlock
+      </Link>
+      <Link
+        to="/newCommunity"
+        className="text-white text-3xl font-bold hover:text-yellow-300"
+      >
+        New Community
       </Link>
 
       {/* Right Section: ConnectButton */}

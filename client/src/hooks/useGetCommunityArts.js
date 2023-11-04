@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useEtherContext } from "../contexts/etherContext";
 
-export default function useGetCommunities() {
+export default function useGetCommunityArts(communityId) {
   const { instance } = useEtherContext();
 
-  const [communities, setCommunities] = useState([]);
+  const [communityArts, setCommunityArts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -13,9 +13,9 @@ export default function useGetCommunities() {
 
     const fetchData = async () => {
       try {
-        const res = await instance.contract.getAllCommunities();
+        const res = await instance.contract.getCommunityArts(communityId);
 
-        setCommunities(res);
+        setCommunityArts(res);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -26,5 +26,5 @@ export default function useGetCommunities() {
     fetchData();
   }, []);
 
-  return { communities, loading, error };
+  return { communityArts, loading, error };
 }

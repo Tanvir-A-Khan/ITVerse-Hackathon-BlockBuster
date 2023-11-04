@@ -9,7 +9,7 @@ const main = async () => {
   const [account] = await ethers.getSigners();
 
   const eth_amount = ethers.parseEther("10");
-  const contract = await ethers.deployContract("Platform");
+  const contract = await ethers.deployContract("ArtBlock");
   await contract.waitForDeployment();
 
   const balance = await ethers.provider.getBalance(contract.target);

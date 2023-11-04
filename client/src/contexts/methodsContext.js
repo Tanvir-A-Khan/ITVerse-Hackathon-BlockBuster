@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import toast from "react-hot-toast";
 import { useEtherContext } from "./etherContext";
 
 const MethodsContext = createContext();
@@ -138,9 +139,11 @@ export const MethodsContextProvider = ({ children }) => {
           communityTypeId
         );
         await res.wait();
+        toast.success("Community Creation Successful");
         return res;
       } catch (err) {
         console.log(err);
+        toast.error("Community Creation Failed");
       }
     }
   };
@@ -151,21 +154,23 @@ export const MethodsContextProvider = ({ children }) => {
    * @param amount
    * @returns  New ABX and Native Token Balance
    */
-  const exchangeABXwithCommunityNativeToken = async (
+  const exchangeTokens = async (
     communityId,
     amount,
-    type // 0 for ABX -> Native 1 for Native => ABX
+    type // 0 for Native -> ABX 1 for ABX => Native
   ) => {
     if (checkAuth()) {
       try {
-        const res = await instance.contract.exchangeABXwithNativeToken(
+        const res = await instance.contract.exchangeTokens(
           communityId,
           amount,
           type
         );
-        return res;
+        await res.wait();
+        toast.success("Exchange Successful");
       } catch (err) {
         console.log(err);
+        toast.success("Exchange Failed");
       }
     }
   };
@@ -173,17 +178,112 @@ export const MethodsContextProvider = ({ children }) => {
   /**
    *
    * @param  communityId
-   * @param  artURI  @param artPrice
+   * @param  artURI  @param artPrice @param artType false for general true for exclusive
    */
-  const uploadART = async (communityId, artURI, artPrice, artCategoryId) => {
+  const uploadART = async (communityId, artURI, artPrice, artType) => {
+    let mark = false;
+    if (Number(artType) === 1) {
+      mark = true;
+    }
     if (checkAuth()) {
       try {
-        const res = await instance.contract.uploadArt(
+        const res = await instance.contract.uploadART(
           communityId,
-          artURI,
           artPrice,
-          artCategoryId
+          artURI,
+          mark
         );
+
+        await res.wait();
+        toast.success("Uploaded Successfully");
+      } catch (err) {
+        console.log(err);
+        toast.error("Upload Failed Try Again");
+      }
+    }
+  };
+
+  const getPendingArts = async (communityId) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.getPendingArts(communityId);
+
+        await res.wait();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const getUserCommunityFund = async (communityId) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.getUserCommunityFund(communityId);
+
+        await res.wait();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const upVote = async (communityId, artId) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.upVote(communityId, artId);
+
+        await res.wait();
+      } catch (err) {
+        console.log(err);
+        await voteFinished(communityId, artId);
+        window.location.reload();
+      }
+    }
+  };
+
+  const downVote = async (communityId, artId) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.downVote(communityId, artId);
+
+        await res.wait();
+      } catch (err) {
+        console.log(err);
+        await voteFinished(communityId, artId);
+        window.location.reload();
+      }
+    }
+  };
+  const voteFinished = async (communityId, artId) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.voteFinished(communityId, artId);
+
+        await res.wait();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const markArtwordAsSellable = async (communityId, artId) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.markArtForSell(communityId, artId);
+
+        await res.wait();
+        toast.success("Success");
+      } catch (err) {
+        console.log(err);
+        toast.success("Failed");
+      }
+    }
+  };
+
+  const getCommunityArts = async (communityId) => {
+    if (checkAuth()) {
+      try {
+        const res = await instance.contract.getCommunityArts(communityId);
 
         await res.wait();
       } catch (err) {
@@ -203,8 +303,15 @@ export const MethodsContextProvider = ({ children }) => {
         buyABX,
         getNewCommunityCost,
         createCommunity,
-        exchangeABXwithCommunityNativeToken,
+        exchangeTokens,
         uploadART,
+        getPendingArts,
+        getCommunityArts,
+        getUserCommunityFund,
+        upVote,
+        downVote,
+        voteFinished,
+        markArtwordAsSellable,
       }}
     >
       {children}

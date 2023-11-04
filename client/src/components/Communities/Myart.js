@@ -1,7 +1,6 @@
 // components/CommunityDetail/Myart.js
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 // no event handler for the Upload and Buy Community Native Token
 
@@ -240,13 +239,117 @@ const Myart = () => {
   const [hoveredArtwork, setHoveredArtwork] = useState(null);
   return (
     <>
-      <div className="container mx-auto  flex">
+      <div className="mt-5 container mx-auto  flex">
+        {/* Image on the left */}
+        <div className="relative overflow-hidden" style={{ width: "60%" }}>
+          <p className="mt-1 text-3xl mb-2 font-bold text-yellow-600 inline-block animate-pulse">
+            Community Art Voting
+          </p>
+          <div
+            className="flex transition-transform duration-500"
+            style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+          >
+            {Approval_data.map((item, index) => (
+              <div key={item.id} className="flex-none w-1/4 p-4 border">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-64 h-64 object-cover mx-auto"
+                />
+                <h3 className="mt-2 font-bold">{item.title}</h3>
+
+                <div className="w-40 flex items-center justify-between">
+                  {/* Left Div for Downvote */}
+                  <div className="flex items-center">
+                    <button
+                      className="px-1 py-1 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 transition duration-300"
+                      onClick={handleDownVote}
+                    >
+                      <span className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-white mr-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="3"
+                            d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                    <span className="ml-2 text-m text-black-300">
+                      {downVoteCount}
+                    </span>{" "}
+                    {/* Display downvote count */}
+                  </div>
+
+                  {/* Right Div for Upvote */}
+                  <div className="flex items-center">
+                    <span className="ml-2 text-m text-black-300">
+                      {upVoteCount}
+                    </span>{" "}
+                    {/* Display upvote count */}
+                    <button
+                      className="px-1 py-1 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300"
+                      onClick={handleUpVote}
+                    >
+                      <span className="flex items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-white mr-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="3"
+                            d="M5 15l7-7 7 7"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Community details on the right */}
+        <div className="w-1/2 pl-6 flex flex-col justify-between">
+          <div>
+            <h2 className="mt-10 text-3xl mb-4 font-bold">{community.title}</h2>
+            <p className="mt-4 text-lg font-medium leading-relaxed text-gray-700 bg-gray-100 p-4 rounded-md shadow-md">
+              {community.description}
+            </p>
+            <p className="mt-6 text-xl font-medium leading-relaxed text-gray-700 bg-gray-100 p-4 rounded-md shadow-md">
+              Token ID: {community.id}
+            </p>
+          </div>
+          <div div style={{ display: "flex", gap: "30px" }}>
+            <p className="mt-4 text-xl mb-4 font-bold">
+              Upload to the community
+            </p>
+            <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
+              Upload
+            </button>
+            <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
+              Buy Community Native Token
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Display artworks that belong to the community */}
       <p className="mt-8 text-2xl font-medium leading-relaxed text-gray-700 bg-gray-100 p-4 rounded-md shadow-md text-center">
-        My Collection in {community.title}
+        Art of {community.title}
       </p>
       <div className="w-full mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {artworkData.slice(0, 10).map((art, index) => (
@@ -263,6 +366,9 @@ const Myart = () => {
             />
             <h3 className="font-semibold mb-2">{art.artName}</h3>
             <p>
+              <strong>Wallet Address:</strong> {art.walletAddress}
+            </p>
+            <p>
               <strong>Price:</strong> {art.price}
             </p>
             <p>
@@ -276,14 +382,9 @@ const Myart = () => {
                 <h3 className="font-bold mb-2">{art.artName}</h3>
                 <p>{art.description}</p>{" "}
                 {/* Assuming there is a description field */}
-                <Link to={`/sell/${index + 1}`}>
-                  <button className="mt-2 bg-yellow-500 text-white py-2 px-10 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
-                   Sell item
-                  </button>
-                </Link>
-                <Link to={`/auction/${index + 1}`}>
-                  <button className="mt-2 bg-orange-500 text-white py-2 px-10 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
-                    Auction
+                <Link to={`/artwork/${index + 1}`}>
+                  <button className="mt-2 bg-blue-500 text-white py-2 px-8 rounded-full shadow-md hover:bg-blue-600 transition duration-300">
+                    More details
                   </button>
                 </Link>
               </div>

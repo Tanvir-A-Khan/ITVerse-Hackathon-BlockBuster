@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useEtherContext } from "../contexts/etherContext";
 
-export default function useCategories() {
+export default function useGetUserCommunityFund(communityId) {
   const { instance } = useEtherContext();
 
-  const [categories, setCategories] = useState([]);
+  const [res, setRes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -13,9 +13,9 @@ export default function useCategories() {
 
     const fetchData = async () => {
       try {
-        const res = await instance.contract.getCategories();
+        const data = await instance.contract.getUserCommunityFund(communityId);
 
-        setCategories(res);
+        setRes(data);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -26,5 +26,5 @@ export default function useCategories() {
     fetchData();
   }, []);
 
-  return { categories, loading, error };
+  return { res, loading, error };
 }

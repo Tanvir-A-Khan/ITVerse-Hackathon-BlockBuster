@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useMethodsContext } from "../../contexts/methodsContext";
-import useCategories from "../../hooks/useCategories";
 
 const NewCommunityForm = () => {
-  const { categories, loading } = useCategories();
-
   const { createCommunity } = useMethodsContext();
 
   const [formData, setFormData] = useState({
@@ -14,7 +11,7 @@ const NewCommunityForm = () => {
     communityTokenName: "",
     communityTokenSymbol: "",
     communityInitialSupply: "",
-    communityTypeId: "",
+    communityTypeId: 0,
   });
 
   const handleChange = (e) => {
@@ -23,6 +20,7 @@ const NewCommunityForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const {
         communityName,
@@ -34,13 +32,12 @@ const NewCommunityForm = () => {
       } = formData;
       await createCommunity(
         communityName,
-        communityTypeId,
         communityDescription,
         communityTokenName,
         communityTokenSymbol,
-        communityInitialSupply
+        communityInitialSupply,
+        communityTypeId
       );
-      toast.success("Community Creation Successful");
     } catch (err) {
       console.log(err);
       toast.error("Community Creation Failed");
@@ -152,23 +149,18 @@ const NewCommunityForm = () => {
             >
               Community Type
             </label>
-            {!loading && (
-              <select
-                name="communityTypeId"
-                id="communityTypeId"
-                onChange={handleChange}
-                value={formData.communityTypeId}
-                className="shadow border rounded w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              >
-                {categories.map((item, index) => (
-                  <option value={index} key={index}>
-                    {item}
-                  </option>
-                ))}
-                {/* Add more options as needed */}
-              </select>
-            )}
+
+            <select
+              name="communityTypeId"
+              id="communityTypeId"
+              onChange={handleChange}
+              value={formData.communityTypeId}
+              className="shadow border rounded w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            >
+              <option value="0"> Painting</option>
+              <option value="1"> Phonography</option>
+            </select>
           </div>
 
           <div className="flex items-center justify-between">
