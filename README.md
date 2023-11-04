@@ -7,8 +7,6 @@
 
 ## Badges
 
-
-
 ![Solidity](https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white)
 ![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -90,6 +88,35 @@ To deploy this project run
 ```bash
   npm run deploy
 ```
+
+## Screenshots
+- Home page
+
+- Metamask Connection
+
+- Buy ABX
+
+- Community Page
+
+- Community Voting Page
+
+- Art Collection in Community
+
+- More Details
+
+- Buy Art
+
+- Upload to Community
+
+- Buy Community Native Token
+
+- My Collection
+
+- My Collection Hover
+
+- Sell Iteam
+
+- Dutch Auction
 
 
 ## Branches
@@ -237,23 +264,6 @@ To deploy this project run
  **Testing**
 - [Hardhat](https://hardhat.org/)
 - [Solidity code](https://github.com/sc-forks/solidity-coverage)
-
-## Screenshots
-Home page
-
-
-
-Sign In with Metamask wallet
-
-
-
-
-Add New ArtWork By Supplier
-
-
-
-
-Filter ArtWork By Condition
 
 
 ## Optimizations
