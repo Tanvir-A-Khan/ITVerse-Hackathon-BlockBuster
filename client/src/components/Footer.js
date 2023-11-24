@@ -19,11 +19,15 @@ const Footer = () => {
         </div>
         <div>
           <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-          <p className="text-sm">For inquiries and support, please contact us at support@artblock.com</p>
+          <p className="text-sm">For inquiries and support, please contact us at : support@example.com</p>
+          <p>Front-end & Dev: Rakibul Hasan Dihan</p>
+          <p>Integration and Back-end: Shahidul Alam</p>
+          <p>Smart Contract : Tanvir Ahmed Khan</p>
         </div>
       </div>
       <div className="text-center mt-8">
         <p className="text-sm">© 2023 ArtBlock. All rights reserved.</p>
+        <p className="text-sm">Team : BlockBuster</p>
       </div>
     </footer>
   );
