@@ -1,4 +1,4 @@
-# ITVerse-Hackathon-BlockBuster
+# ITVerse-Hackathon-BlockBuster [4th Position]
 ![image](https://github.com/Tanvir-A-Khan/ITVerse-Hackathon-BlockBuster/assets/98779204/a86a1b52-12b4-489e-bed4-2b073a31a063)
 
 **ArtBlock: The Evolution of Decentralized Art Communities**
